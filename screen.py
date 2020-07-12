@@ -4,7 +4,12 @@ import argparse
 import asyncio
 import sys
 
-import gpiozero
+try:
+    #pylint: disable=import-error
+    import gpiozero
+    MOCK = False
+except ModuleNotFoundError:
+    MOCK = True
 
 RELAY_1_PIN = 26  # Up
 RELAY_2_PIN = 20  # Down
@@ -14,9 +19,14 @@ RELAY_3_PIN = 21  # Neutral
 class MotorizedScreen():
     """Motorized project screen"""
     def __init__(self, neutral=RELAY_3_PIN, up=RELAY_1_PIN, down=RELAY_2_PIN):
-        self._neutral = gpiozero.DigitalOutputDevice(neutral)
-        self._up = gpiozero.DigitalOutputDevice(up)
-        self._down = gpiozero.DigitalOutputDevice(down)
+        if not MOCK:
+            self._neutral = gpiozero.DigitalOutputDevice(neutral)
+            self._up = gpiozero.DigitalOutputDevice(up)
+            self._down = gpiozero.DigitalOutputDevice(down)
+        else:
+            self._neutral = GPIOMock(neutral)
+            self._up = GPIOMock(up)
+            self._down = GPIOMock(down)
         self.running_task = None  # Stores current async task being run
 
     async def retract(self, duration=30):
@@ -39,9 +49,26 @@ class MotorizedScreen():
         """Stop the screen movement"""
         if self.running_task and not self.running_task.done():
             self.running_task.cancel()
+            self.running_task = None
         self._down.off()
         self._up.off()
         self._neutral.off()
+
+
+class GPIOMock():
+    """Mock of gpio functions used in MotorizedScreen"""
+    #pylint: disable=invalid-name
+    def __init__(self, pin):
+        """Initialize with pin information"""
+        self.pin = pin
+
+    def on(self):
+        """Turn on"""
+        print(f"Turn {self.pin} on")
+
+    def off(self):
+        """Turn off"""
+        print(f"Turn {self.pin} off")
 
 
 def parse_arguments():
