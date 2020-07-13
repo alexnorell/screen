@@ -1,13 +1,9 @@
 """A setuptools based setup module.
-
-See:
-https://packaging.python.org/guides/distributing-packages-using-setuptools/
-https://github.com/pypa/sampleproject
 """
 
+import pathlib
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
 
@@ -171,11 +167,11 @@ setup(
     #
     # For example, the following would provide a command called `sample` which
     # executes the function `main` from this package when invoked:
-    entry_points={  # Optional
-        'console_scripts': [
-            'screen=screen:main',
-        ],
-    },
+    # entry_points={  # Optional
+    #     'console_scripts': [
+    #         'screen=screen:main',
+    #     ],
+    # },
 
     # List additional URLs that are relevant to your project as a dict.
     #
