@@ -8,6 +8,7 @@ on:
 
 jobs:
   lint:
+    name: Lint module source files
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -30,6 +31,7 @@ jobs:
       run: |
         find ./src/ -name "*.py" -exec pylint '{}' +
   build:
+    name: Build python modules
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -45,6 +47,7 @@ jobs:
       run: |
         python3 setup.py sdist bdist_wheel
   test:
+    name: Test python modules
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
