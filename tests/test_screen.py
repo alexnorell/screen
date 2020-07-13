@@ -1,11 +1,15 @@
-import pytest
-import screen 
+"""Test the screen python module"""
+# pylint: disable=unused-variable
+import screen
+
 
 def test_extend():
-    test_screen = screen.screen.MotorizedScreen()
-    test_screen.extend()
+    """Test the extend method to see if if crashes or changes"""
+    test_screen = screen.MotorizedScreen()
+    screen.screen.asyncio.run(test_screen.extend(0))
 
 
 def test_retract():
-    test_screen = screen.screen.MotorizedScreen()
-    test_screen.retract()
+    """Test the retract method to see if if crashes or changes"""
+    test_screen = screen.MotorizedScreen()
+    screen.screen.asyncio.run(test_screen.extend(0))
