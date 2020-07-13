@@ -5,7 +5,7 @@ import asyncio
 import sys
 
 try:
-    #pylint: disable=import-error
+    # pylint: disable=import-error
     import gpiozero
     MOCK = False
 except ModuleNotFoundError:
