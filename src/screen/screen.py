@@ -3,6 +3,10 @@
 import argparse
 import asyncio
 import sys
+import logging
+
+logging.basicConfig(format='[%(asctime)s] %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 try:
     # pylint: disable=import-error
@@ -31,28 +35,33 @@ class MotorizedScreen():
 
     async def retract(self, duration=30):
         """Raise the projector screen"""
+        logger.debug("Start Retract")
         self._neutral.on()
         self._up.on()
         await asyncio.sleep(duration)
         self._up.off()
         self._neutral.off()
+        self.running_task = None
+        logger.debug("End Retract")
 
     async def extend(self, duration=30):
         """Extend the projector screen"""
+        logger.debug("Start Extend")
         self._neutral.on()
         self._down.on()
         await asyncio.sleep(duration)
         self._down.off()
         self._neutral.off()
+        self.running_task = None
+        logger.debug("End Extend")
 
     async def stop(self):
         """Stop the screen movement"""
-        if self.running_task and not self.running_task.done():
-            self.running_task.cancel()
-            self.running_task = None
+        logger.debug("Stop running task")
         self._down.off()
         self._up.off()
         self._neutral.off()
+        self.running_task = None
 
 
 class GPIOMock():
@@ -64,11 +73,11 @@ class GPIOMock():
 
     def on(self):
         """Turn on"""
-        print(f"Turn {self.pin} on")
+        logger.info(f"Turn {self.pin} on")
 
     def off(self):
         """Turn off"""
-        print(f"Turn {self.pin} off")
+        logger.info(f"Turn {self.pin} off")
 
 
 def parse_arguments():
