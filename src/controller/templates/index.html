@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="/static/site.webmanifest">
+  <link rel="apple-touch-icon" href="/static/icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="/static/css/normalize.css">
+  <link rel="stylesheet" href="/static/css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <h1>Motorized Projector Screen</h1>
+  <h3>Status</h3>
+  <table>
+    {% for key, value in status.items() %}
+       <tr>
+            <th> {{ key }} </th>
+            <td> {{ value }} </td>
+       </tr>
+    {% endfor %}
+  </table>
+  <h3>Control</h3>
+  <button>Raise</button>
+  <button>Lower</button>
+  <button>Stop</button>
+  <script src="/static/js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="/static/js/plugins.js"></script>
+  <script src="/static/js/main.js"></script>
+
+</body>
+
+</html>

@@ -2,11 +2,13 @@
 import asyncio
 import logging
 
-from quart import Quart, request, jsonify
+from quart import Quart, request, jsonify, render_template
+from quart_minify.minify import Minify
 
 from screen import MotorizedScreen
 
 app = Quart(__name__)
+Minify(app=app)
 logging.basicConfig(format="[%(asctime)s] %(message)s", level=logging.INFO)
 
 SCREEN = MotorizedScreen()
@@ -16,7 +18,8 @@ SCREEN = MotorizedScreen()
 async def _landing():  # pylint: disable=unused-variable
     """Landing Page"""
     moving = SCREEN.running_task is not None
-    return {"moving": moving}
+    template = await render_template("index.html", status={"moving": moving})
+    return template
 
 
 @app.route("/control", methods=["POST"])

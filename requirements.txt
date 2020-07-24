@@ -3,4 +3,5 @@ pylint
 pylint-pytest
 pytest 
 quart
+quart_minify
 yapf
