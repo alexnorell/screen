@@ -43,4 +43,5 @@ async def _control():  # pylint: disable=unused-variable
     return jsonify(success=True)
 
 
-app.run()
+if __name__ == "__main__":
+    app.run()

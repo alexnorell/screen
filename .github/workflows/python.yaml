@@ -29,6 +29,22 @@ jobs:
     - name: Lint with pylint
       run: |
         find ./src/ -name "*.py" -exec pylint '{}' +
+  format:
+    name: Check format of module source files
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install yapf
+    - name: Format with yapf
+      run: |
+        find ./src/ -name "*.py" -exec yapf --diff --verbose '{}' +
   build:
     name: Build python modules
     runs-on: ubuntu-latest

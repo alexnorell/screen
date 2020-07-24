@@ -68,6 +68,7 @@ class MotorizedScreen():
 
 class GPIOMock():
     """Mock of gpio functions used in MotorizedScreen"""
+
     #pylint: disable=invalid-name
     def __init__(self, pin):
         """Initialize with pin information"""
