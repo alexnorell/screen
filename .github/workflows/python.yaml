@@ -82,4 +82,4 @@ jobs:
         find ./tests/ -name "*.py" -exec pylint --load-plugins pylint_pytest '{}' +
     - name: Test
       run: |
-        pytest
+        pytest --verbose
