@@ -1,23 +1,27 @@
+"""Web controller for motorized screen"""
 import asyncio
-from quart import Quart, request, jsonify
 import logging
+
+from quart import Quart, request, jsonify
 
 from screen import MotorizedScreen
 
 app = Quart(__name__)
-logging.basicConfig(format='[%(asctime)s] %(message)s', level=logging.INFO)
+logging.basicConfig(format="[%(asctime)s] %(message)s", level=logging.INFO)
 
 SCREEN = MotorizedScreen()
 
 
-@app.route('/')
-async def landing():
+@app.route("/")
+async def _landing():  # pylint: disable=unused-variable
+    """Landing Page"""
     moving = SCREEN.running_task is not None
     return {"moving": moving}
 
 
-@app.route('/control', methods=["POST"])
-async def control():
+@app.route("/control", methods=["POST"])
+async def _control():  # pylint: disable=unused-variable
+    """Control API endpoint"""
     action = (await request.get_json())["action"]
     if not action or action not in ["extend", "retract", "stop"]:
         return jsonify(success=False)

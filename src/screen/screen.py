@@ -5,7 +5,9 @@ import asyncio
 import sys
 import logging
 
-logging.basicConfig(format='[%(asctime)s] %(message)s', level=logging.INFO)
+# pylint: disable=logging-format-interpolation
+
+logging.basicConfig(format="[%(asctime)s] %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 try:
@@ -73,11 +75,11 @@ class GPIOMock():
 
     def on(self):
         """Turn on"""
-        logger.info(f"Turn {self.pin} on")
+        logger.info("Turn {} on".format(self.pin))
 
     def off(self):
         """Turn off"""
-        logger.info(f"Turn {self.pin} off")
+        logger.info("Turn {} off".format(self.pin))
 
 
 def parse_arguments():
