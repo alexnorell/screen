@@ -25,13 +25,15 @@ async def _landing():  # pylint: disable=unused-variable
 @app.route("/control", methods=["POST"])
 async def _control():  # pylint: disable=unused-variable
     """Control API endpoint"""
-    action = (await request.get_json())["action"]
+    request_json = await request.get_json()
+    action = request_json["action"]
     if not action or action not in ["extend", "retract", "stop"]:
         return jsonify(success=False)
     # Screen in motion, and a new request is made, return an error
     if SCREEN.running_task and action in ["extend", "retract"]:
-        return jsonify(error="Screen in motion. Must stop or complete",
-                       success=False)
+        error_message = "Screen in motion. Must stop or complete"
+        logging.error(error_message)
+        return jsonify(error=error_message, success=False)
     if action == "stop" and SCREEN.running_task is not None:
         logging.debug("Stop running action")
         SCREEN.running_task.cancel()

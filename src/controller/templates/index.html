@@ -29,20 +29,19 @@
   <h3>Status</h3>
   <table>
     {% for key, value in status.items() %}
-       <tr>
-            <th> {{ key }} </th>
-            <td> {{ value }} </td>
-       </tr>
+    <tr>
+      <th> {{ key }} </th>
+      <td> {{ value }} </td>
+    </tr>
     {% endfor %}
   </table>
   <h3>Control</h3>
-  <button>Raise</button>
-  <button>Lower</button>
-  <button>Stop</button>
+  <button onClick="control('retract')">Raise</button>
+  <button onClick="control('extend')">Lower</button>
+  <button onClick="control('stop')">Stop</button>
   <script src="/static/js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="/static/js/plugins.js"></script>
   <script src="/static/js/main.js"></script>
-
 </body>
 
 </html>
