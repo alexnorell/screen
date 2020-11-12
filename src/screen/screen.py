@@ -23,7 +23,7 @@ RELAY_3_PIN = 21  # Neutral
 
 
 class MotorizedScreen():
-    """Motorized project screen"""
+    """Motorized projector screen"""
     def __init__(self, neutral=RELAY_3_PIN, up=RELAY_1_PIN, down=RELAY_2_PIN):
         if not MOCK:
             self._neutral = gpiozero.DigitalOutputDevice(neutral)

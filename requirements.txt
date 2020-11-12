@@ -1,7 +1,9 @@
 flake8
 pylint
 pylint-pytest
-pytest 
+pytest
 quart
 quart_minify
 yapf
+pyyaml
+pyharmony
