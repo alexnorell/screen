@@ -8,20 +8,17 @@ HARMONY_IP = "192.168.1.30"
 PORT = 5222
 SLEEP_TIME = 5
 REQUEST_URL = "http://127.0.0.1/control"
-RESET_TIME = 60*60
+RESET_TIME = 60 * 60
 
 SWITCH_PROJECTOR = 44913858
 SHIELD_PROJECTOR = 44913860
 PS3_PROJECTOR = 44913860
 
 # PROJECTOR = "70174191"
-ACTIVITIES = [
-    SWITCH_PROJECTOR,
-    SHIELD_PROJECTOR,
-    PS3_PROJECTOR
-]
+ACTIVITIES = [SWITCH_PROJECTOR, SHIELD_PROJECTOR, PS3_PROJECTOR]
 
 logging.basicConfig(format="[%(asctime)s] %(message)s", level=logging.INFO)
+
 
 def main():
     """Main Function"""
@@ -35,7 +32,8 @@ def main():
                 if client:
                     logging.info(f"Reset client connection")
                 logging.info(f"Connect harmony client to {HARMONY_IP}:{PORT}")
-                client = Client.create_and_connect_client(ip_address=HARMONY_IP, port=PORT)
+                client = Client.create_and_connect_client(
+                    ip_address=HARMONY_IP, port=PORT)
             activity = client.get_current_activity()
             if activity != previous_activity:
                 logging.info(f"Activity Changed: {activity}")
