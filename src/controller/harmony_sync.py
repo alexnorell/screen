@@ -1,8 +1,10 @@
-from pyharmony import client as Client
+"""Control screen based on Harmony Activity"""
+import logging
 import sys
 import time
+
 import requests
-import logging
+from pyharmony import client as Client
 
 HARMONY_IP = "192.168.1.30"
 PORT = 5222
@@ -30,13 +32,13 @@ def main():
             if not client or time.time() > (start_time + RESET_TIME):
                 start_time = time.time()
                 if client:
-                    logging.info(f"Reset client connection")
-                logging.info(f"Connect harmony client to {HARMONY_IP}:{PORT}")
+                    logging.info("Reset client connection")
+                logging.info("Connect harmony client to %s:%s", HARMONY_IP, PORT)
                 client = Client.create_and_connect_client(
                     ip_address=HARMONY_IP, port=PORT)
             activity = client.get_current_activity()
             if activity != previous_activity:
-                logging.info(f"Activity Changed: {activity}")
+                logging.info("Activity Changed: %s", activity)
                 if activity in ACTIVITIES:
                     logging.info("Extending Projector Screen")
                     requests.post(REQUEST_URL, json={"action": "extend"})
