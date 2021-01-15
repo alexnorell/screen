@@ -33,8 +33,8 @@ def main():
                 start_time = time.time()
                 if client:
                     logging.info("Reset client connection")
-                connection_string = f"Connect harmony client to {HARMONY_IP}:{PORT}"
-                logging.info(connection_string)
+                log_message = f"Connect harmony client to {HARMONY_IP}:{PORT}"
+                logging.info(log_message)
                 client = Client.create_and_connect_client(
                     ip_address=HARMONY_IP, port=PORT)
             activity = client.get_current_activity()
