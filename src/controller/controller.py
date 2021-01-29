@@ -2,6 +2,7 @@
 import asyncio
 import logging
 
+import redis
 from quart import Quart, request, jsonify, render_template
 from quart_minify.minify import Minify
 
@@ -18,7 +19,13 @@ SCREEN = MotorizedScreen()
 async def _landing():  # pylint: disable=unused-variable
     """Landing Page"""
     moving = SCREEN.running_task is not None
-    template = await render_template("index.html", status={"moving": moving})
+    if moving:
+        status = "moving"
+    else:
+        remote_state = redis.Redis(host='localhost', port=6379,
+                                   db=0).get("state")
+        status = remote_state.decode("utf-8")
+    template = await render_template("index.html", status=status)
     return template
 
 
@@ -44,6 +51,7 @@ async def _control():  # pylint: disable=unused-variable
     }
     action_task = actions.get(action)
     task = asyncio.ensure_future(action_task())
+    redis.Redis(host='localhost', port=6379, db=0).set("state", f"{action}ed")
     SCREEN.running_task = task
     return jsonify(success=True)
 
