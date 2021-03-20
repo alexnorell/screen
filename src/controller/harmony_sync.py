@@ -28,8 +28,11 @@ def handle_change(activity):
     activity_string = f"Activity Changed: {activity}"
     logging.info(activity_string)
     previous_activity = _R.get("activity")
+    logging.debug("previous activity %d" % previous_activity)
     if activity in ACTIVITIES and previous_activity not in ACTIVITIES:
         control_screen("extend")
+    elif activity == -1:
+        control_screen("retract")
     elif previous_activity in ACTIVITIES and activity not in ACTIVITIES:
         control_screen("retract")
     _R.set("activity", activity)
