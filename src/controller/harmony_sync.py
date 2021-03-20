@@ -18,13 +18,6 @@ SHIELD_PROJECTOR = 44913860
 PS3_PROJECTOR = 44913860
 OFF = -1
 
-ACTIVITY_LOOKUP = {
-    SWITCH_PROJECTOR: "Switch Projector",
-    SHIELD_PROJECTOR: "Shield Projector",
-    PS3_PROJECTOR: "PS3 Projector",
-    OFF: "Off",
-}
-
 # PROJECTOR = "70174191"
 ACTIVITIES = [SWITCH_PROJECTOR, SHIELD_PROJECTOR, PS3_PROJECTOR]
 
@@ -33,12 +26,10 @@ logging.basicConfig(format="[%(asctime)s] %(message)s", level=logging.DEBUG)
 
 def handle_change(activity):
     """Handle am activity change and adjust screen"""
-    activity_lookup = ACTIVITY_LOOKUP.get(activity, default="Unknown")
-    activity_string = f"Activity Changed: {activity_lookup}"
+    activity_string = f"Activity Changed: {activity}"
     logging.info(activity_string)
     previous_activity = int(_R.get("activity"))
-    previous_activity_lookup = ACTIVITY_LOOKUP.get(previous_activity, default="Unknown")
-    previous_activity_string = f"Previous Activity: {previous_activity_lookup}"
+    previous_activity_string = f"Previous Activity: {previous_activity}"
     logging.info(previous_activity_string)
     if activity in ACTIVITIES and previous_activity not in ACTIVITIES:
         control_screen("extend")
