@@ -27,7 +27,7 @@ def handle_change(activity):
     """Handle am activity change and adjust screen"""
     activity_string = f"Activity Changed: {activity}"
     logging.info(activity_string)
-    previous_activity = _R.get("activity")
+    previous_activity = int(_R.get("activity"))
     logging.debug("previous activity: %s", previous_activity)
     if activity in ACTIVITIES and previous_activity not in ACTIVITIES:
         control_screen("extend")
