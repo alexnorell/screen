@@ -16,6 +16,14 @@ RESET_TIME = 60 * 60
 SWITCH_PROJECTOR = 44913858
 SHIELD_PROJECTOR = 44913860
 PS3_PROJECTOR = 44913860
+OFF = -1
+
+ACTIVITY_LOOKUP = {
+    SWITCH_PROJECTOR = "Switch Projector",
+    SHIELD_PROJECTOR = "Shield Projector",
+    PS3_PROJECTOR = "PS3 Projector",
+    OFF = "Off",
+}
 
 # PROJECTOR = "70174191"
 ACTIVITIES = [SWITCH_PROJECTOR, SHIELD_PROJECTOR, PS3_PROJECTOR]
@@ -28,10 +36,11 @@ def handle_change(activity):
     activity_string = f"Activity Changed: {activity}"
     logging.info(activity_string)
     previous_activity = int(_R.get("activity"))
-    logging.debug("previous activity: %s", previous_activity)
+    previous_activity_string = ACTIVITY_LOOKUP.get(previous_activity, default="Unknown")
+    logging.debug("Previous Activity: %s", previous_activity_string)
     if activity in ACTIVITIES and previous_activity not in ACTIVITIES:
         control_screen("extend")
-    elif activity == -1:
+    elif activity == OFF:
         control_screen("retract")
     elif previous_activity in ACTIVITIES and activity not in ACTIVITIES:
         control_screen("retract")
