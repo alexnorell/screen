@@ -19,10 +19,10 @@ PS3_PROJECTOR = 44913860
 OFF = -1
 
 ACTIVITY_LOOKUP = {
-    SWITCH_PROJECTOR = "Switch Projector",
-    SHIELD_PROJECTOR = "Shield Projector",
-    PS3_PROJECTOR = "PS3 Projector",
-    OFF = "Off",
+    SWITCH_PROJECTOR: "Switch Projector",
+    SHIELD_PROJECTOR: "Shield Projector",
+    PS3_PROJECTOR: "PS3 Projector",
+    OFF: "Off",
 }
 
 # PROJECTOR = "70174191"
